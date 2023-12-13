@@ -1,0 +1,48 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: run-artisan
+  title: Executar Artisan
+  description: Template que executa um comando do Artisan
+spec:
+  owner: user:guest
+  type: service
+
+  # These parameters are used to generate the input form in the frontend, and are
+  # used to gather input data for the execution of the template.
+  parameters:
+    - title: Parâmetros
+      required:
+        - command
+      properties:
+        pod:
+          title: Pod
+          type: string
+          description: Nome do pod
+          ui:autofocus: true
+          ui:options:
+            rows: 5
+        command:
+          title: Command
+          type: string
+          description: Argumentos
+          ui:autofocus: true
+          ui:options:
+            rows: 5
+
+  # These steps are executed in the scaffolder backend, using data that we gathered
+  # via the parameters above.
+  steps:
+    - id: run-artisan
+      name: Run Artisan
+      action: yampi:artisan:run
+      input:
+        pod: ${{ parameters.pod }}
+        command: ${{ parameters.command }}
+
+  # Outputs are displayed to the user after a successful execution of the template.
+  output:
+    text:
+      - title: Execution
+        content: |
+          **Saída:** `${{ steps['run-artisan'].output.output }}`
