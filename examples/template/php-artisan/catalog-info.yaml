@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: backstage-php-artisan
+  annotations:
+    github.com/project-slug: alanrp4/backstage-php-artisan
+spec:
+  type: other
+  lifecycle: unknown
+  owner: alanrp4
